@@ -4,7 +4,10 @@
   "description": "Authentication Sprint Challenge",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "test:watch": "cross-env NODE_ENV=testing jest --watch",
+    "test": "cross-env NODE_ENV=testing jest",
+    "start:watch": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,12 @@
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "cross-env": "^7.0.2",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

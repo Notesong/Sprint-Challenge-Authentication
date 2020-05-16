@@ -5,17 +5,24 @@ const Users = require("./auth-model.js");
 
 router.post("/register", (req, res) => {
   const user = req.body;
-  const hash = bcrypt.hashSync(user.password, 8);
 
-  user.password = hash;
+  if (user.username === 0 || user.password === "") {
+    res.status(400).json({ message: "missing login info" })
+  } else {
+    const hash = bcrypt.hashSync(user.password, 8);
 
-  Users.add(user)
-    .then((saved) => {
-      res.status(201).json({ saved });
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+    user.password = hash;
+
+    Users.add(user)
+      .then((saved) => {
+        res.status(201).json({ saved });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  }
+
+
 });
 
 router.post("/login", (req, res) => {
